@@ -7,10 +7,6 @@
 #include <fstream>
 #include <vector>
 
-// use external lib json
-#include "rapidjson/document.h"
-#include "rapidjson/filereadstream.h"
-
 #include "readJson.h"
 #include "../../transmitterAndNoise.h"
 

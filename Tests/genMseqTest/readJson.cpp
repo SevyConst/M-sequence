@@ -5,7 +5,6 @@
 #include "readJson.h"
 
 #include <iostream>
-#include <string>
 
 readJson::readJson(const char *path) {
     FILE* fp = fopen(path, "r");

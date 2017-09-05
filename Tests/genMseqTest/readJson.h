@@ -8,8 +8,8 @@
 #include <vector>
 
 // using external library
-#include "rapidjson/document.h"
-#include "rapidjson/filereadstream.h"
+#include "../../rapidjson/include/rapidjson/document.h"
+#include "../../rapidjson/include/rapidjson/filereadstream.h"
 
 class readJson {
 

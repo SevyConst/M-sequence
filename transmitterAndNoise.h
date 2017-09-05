@@ -19,10 +19,15 @@ namespace tn
     // returned vector
     std::vector<bool> genMseq(std::vector<bool> iniState,
                               unsigned int numSamples,
-                              const bool taps []);
+                              std::vector<bool> taps);
 
     // generate signal without noise and without carrier
     std::vector<double> genSignal(std::vector<bool> mSeq);
+
+    // Convert presentation of taps from int vector to bool
+    // for example [0, 3, 5] -->  [0, 0, 0, 1, 0, 1]
+    std::vector<bool> convertTaps(std::vector <int> shortVec,
+                                  unsigned int lengthRegister);
 
     // add noise to signal
 }
