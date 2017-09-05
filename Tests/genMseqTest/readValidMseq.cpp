@@ -2,11 +2,11 @@
 // Created by Konstantin Lopatko on 23.08.17.
 //
 
-#include "readJson.h"
+#include "readValidMseq.h"
 
 #include <iostream>
 
-readJson::readJson(const char *path) {
+readValidMseq::readValidMseq(const char *path) {
     FILE* fp = fopen(path, "r");
     char readBuffer[65536];
     rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
@@ -15,7 +15,7 @@ readJson::readJson(const char *path) {
 
 
 // i --> doc["No. i"]
-const rapidjson::Value& readJson::getPartOfDoc(unsigned int i) {
+const rapidjson::Value& readValidMseq::getPartOfDoc(unsigned int i) {
     std::string str = "No. " + std::to_string(i);
     const char * cstr = str.c_str();
     assert(doc.HasMember(cstr));
@@ -23,14 +23,14 @@ const rapidjson::Value& readJson::getPartOfDoc(unsigned int i) {
 }
 
 // argument: No. of M-seq
-std::vector<bool> readJson::iniState(unsigned int i) {
+std::vector<bool> readValidMseq::iniState(unsigned int i) {
     const rapidjson::Value& partDoc = getPartOfDoc(i);
     assert(partDoc.HasMember("initial state"));
     return MapToBoolVector(partDoc["initial state"]);
 }
 
 
-std::vector<int> readJson::readTaps(unsigned int i) {
+std::vector<int> readValidMseq::readTaps(unsigned int i) {
     const rapidjson::Value& partDoc = getPartOfDoc(i);
     assert(partDoc.HasMember("taps"));
     const rapidjson::Value& refTaps = partDoc["taps"];
@@ -43,14 +43,14 @@ std::vector<int> readJson::readTaps(unsigned int i) {
 }
 
 
-std::vector<bool> readJson::readMseq(unsigned int i) {
+std::vector<bool> readValidMseq::readMseq(unsigned int i) {
     const rapidjson::Value& partDoc = getPartOfDoc(i);
     assert(partDoc.HasMember("samples of M-sequence"));
     return MapToBoolVector(partDoc["samples of M-sequence"]);
 }
 
 
-std::vector<bool> readJson::MapToBoolVector(const rapidjson::Value& obj) {
+std::vector<bool> readValidMseq::MapToBoolVector(const rapidjson::Value& obj) {
     std::vector<bool> boolVec;
     for(int i = 0; i < obj.MemberCount(); i++) {
 
@@ -66,7 +66,7 @@ std::vector<bool> readJson::MapToBoolVector(const rapidjson::Value& obj) {
     return boolVec;
 }
 
-unsigned int readJson::getNumParts() const {
+unsigned int readValidMseq::getNumParts() const {
     return doc.MemberCount();
 }
 

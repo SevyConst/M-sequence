@@ -11,7 +11,7 @@
 #include "../../rapidjson/include/rapidjson/document.h"
 #include "../../rapidjson/include/rapidjson/filereadstream.h"
 
-class readJson {
+class readValidMseq {
 
     std::vector<bool> MapToBoolVector(const rapidjson::Value& obj);
 
@@ -22,7 +22,7 @@ class readJson {
     rapidjson::Document doc;
 
 public:
-    readJson(const char *path);
+    readValidMseq(const char *path);
 
     // n - No. M-sequence in JSON file
     std::vector<bool> iniState(unsigned int i);

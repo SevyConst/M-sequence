@@ -7,13 +7,14 @@
 #include <fstream>
 #include <vector>
 
-#include "readJson.h"
+#include "readValidMseq.h"
 #include "../../transmitterAndNoise.h"
 
-bool compareSeq(const std::vector<bool> m1, const std::vector<bool> m2);
+
+bool compareMSeq(const std::vector<bool> m1, const std::vector<bool> m2);
 
 int main(){
-    readJson check("../Tests/genMseqTest/M-sequences.json");
+    readValidMseq check("../Tests/genMseqTest/M-sequences.json");
 
     bool testPassed = true;
 
@@ -31,7 +32,7 @@ int main(){
         unsigned int numSamples = validMseq.size();
 
         std::vector<bool> Mseq = tn::genMseq(iniState, numSamples, taps);
-        if (!compareSeq(Mseq, validMseq)) {
+        if (!compareMSeq(Mseq, validMseq)) {
             std::cout << "No. " << i << ". Don't equal!" << std::endl;
             testPassed = false;
         }
@@ -42,7 +43,7 @@ int main(){
 }
 
 // return true if sequences is equal
-bool compareSeq(const std::vector<bool> m1, const std::vector<bool> m2){
+bool compareMSeq(const std::vector<bool> m1, const std::vector<bool> m2){
     for (unsigned int i = 0; i < m1.size(); i++){
         if (m1.at(i) != m2.at(i))
             return false;

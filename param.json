@@ -1,0 +1,5 @@
+{
+    "Number of sent bits": 100000,
+    "length of LFSR": 10,
+    "taps": [0, 0, 0, 0, 0, 0, 1, 0, 0, 1]
+}
