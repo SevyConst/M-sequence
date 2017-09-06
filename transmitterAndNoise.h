@@ -19,17 +19,24 @@ namespace tn
     // returned vector
     std::vector<bool> genMseq(std::vector<bool> iniState,
                               unsigned int numSamples,
-                              std::vector<bool> taps);
+                              std::vector<unsigned int> taps);
 
-    // generate signal without noise and without carrier
-    std::vector<double> genSignal(std::vector<bool> mSeq);
+    // generate M-sequence
+    // The same function but initial state is random
+    std::vector<bool> genMseq(unsigned int lengthLFSR,
+                              unsigned int numSamples,
+                              std::vector<unsigned int> taps);
 
-    // Convert presentation of taps from int vector to bool
-    // for example [0, 3, 5] -->  [0, 0, 0, 1, 0, 1]
-    std::vector<bool> convertTaps(std::vector <int> shortVec,
-                                  unsigned int lengthRegister);
+    // function throws exceptions if vector taps isn't suitable for this
+    // length of LFSR. It is quite simple and don't ensure that these taps
+    // allow to generate M-sequence.
+    void checkTaps(std::vector<unsigned int> taps,
+                   unsigned int lengthLFSR);
 
-    // add noise to signal
+    // generate signal without carrier
+    std::vector<double> transmit(std::vector<bool> mSeq);
+
+
 }
 
 #endif //M_SEQUENCE_TRANSMITTERANDNOISE_H

@@ -22,10 +22,7 @@ int main(){
     for (int i = 0; i <= 4; i++) {
         std::vector<bool> iniState = check.iniState(i);
         unsigned int lengthRegister = iniState.size();
-
-        // convert information about taps from int vector to bool vector
-        std::vector<bool> taps = tn::convertTaps(check.readTaps(i), lengthRegister);
-
+        std::vector<unsigned int> taps = check.readTaps(i);
         std::vector<bool> validMseq = check.readMseq(i);
 
         // number of samples of M-sequences

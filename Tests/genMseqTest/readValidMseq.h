@@ -13,20 +13,22 @@
 
 class readValidMseq {
 
-    std::vector<bool> MapToBoolVector(const rapidjson::Value& obj);
-
     // Returns reference to i-th M-sequence. For example getPartOfDoc(3) returns
     // doc["No. 3"]
     const rapidjson::Value& getPartOfDoc(unsigned int i);
 
+    // Map from Json file convert to bool
+    std::vector<bool> MapToBoolVector(const rapidjson::Value& obj);
+
     rapidjson::Document doc;
 
 public:
+    // open file
     readValidMseq(const char *path);
 
     // n - No. M-sequence in JSON file
     std::vector<bool> iniState(unsigned int i);
-    std::vector<int> readTaps(unsigned int i);
+    std::vector<unsigned int> readTaps(unsigned int i);
     std::vector<bool> readMseq(unsigned int i);
 
     // get number parts (get number of M-sequences)

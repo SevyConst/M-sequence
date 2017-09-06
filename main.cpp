@@ -2,29 +2,31 @@
 #include <vector>
 
 #include "transmitterAndNoise.h"
-#include "readInput.h"
+#include "inputJson.h"
 
 int main() {
+
     // Define parameters
     //-------------------------------------------------------------------------
-    readInput param("../param.json");
+
+    inputJson param("../param.json");
+    param.saveDataFromFile();
+
+    // number of bits that will be sent
     unsigned int numBits = param.getNumBits();
     unsigned int lengthLFSR = param.getLengthLFSR();
-    std::vector<bool> taps = param.getTaps();
+    std::vector<unsigned int> taps = param.getTaps();
+
 
 
     // Transmitter
     //-------------------------------------------------------------------------
 
-    // initial state for M-sequence in Transmitter
-    // (generate seed for sent M-sequence)
-    std::vector<bool> iniState = tn::randInitState(lengthLFSR);
-
-    // generate emitted M-sequence
-    std::vector<bool> mSeq = tn::genMseq(iniState, numBits, taps);
+    // generate M-sequence with random initial seed of LFSR
+    std::vector<bool> mSeq = tn::genMseq(lengthLFSR, numBits, taps);
 
     // generate emitted signal (without carrier)
-    std::vector<double> signal = tn::genSignal(mSeq);
+    std::vector<double> signal = tn::transmit(mSeq);
 
 
     //-------------------------------------------------------------------------

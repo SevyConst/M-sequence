@@ -11,23 +11,26 @@
 #include "rapidjson/include/rapidjson/document.h"
 #include "rapidjson/include/rapidjson/filereadstream.h"
 
-class readInput {
+class inputJson {
     rapidjson::Document doc;
 
     unsigned int numBits;  // number of samples in M-sequence
     unsigned int lengthLFSR;
-    std::vector<bool> taps;
+    std::vector<unsigned int> taps;
 
-    // These function read the parameters to the variables above
+    // These functions save the parameters from file to the variables above
     void readNumBits();
     void readLengthLFSR();
     void readTaps();
 public:
-    readInput(const char *path);
+    // open file with parameters
+    inputJson(const char *path);
+
+    void saveDataFromFile();
 
     unsigned int getNumBits() const;
     unsigned int getLengthLFSR() const;
-    std::vector<bool> getTaps() const;
+    std::vector<unsigned int> getTaps() const;
 };
 
 
