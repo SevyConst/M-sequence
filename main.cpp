@@ -33,6 +33,12 @@ int main() {
 
 
 
+    // Simplest receiver
+    //-------------------------------------------------------------------------
+    std::vector<bool> recievedBits = simplestReciever(signal);
+
+
+
     //-------------------------------------------------------------------------
     std::cout << "Done!" << std::endl;
     return 0;

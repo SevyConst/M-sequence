@@ -41,5 +41,7 @@ std::vector<double> transmit(std::vector<bool> mSeq,
 // compute standard deviation of noise
 double computeSigmaNoise(double snrdB, double signalPower = 1);
 
+std::vector<bool> simplestReciever(std::vector<double> signal);
+
 
 #endif //M_SEQUENCE_MAINFUNCTIONS_H

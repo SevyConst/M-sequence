@@ -146,5 +146,16 @@ double computeSigmaNoise(double snrdB, double signalPower) {
 }
 
 
+std::vector<bool> simplestReciever(std::vector<double> signal) {
+    std::vector<bool> result;
+    unsigned int numBits = signal.size();
+    result.resize(numBits);
+
+    // determine if signal is positive
+    for (int i = 0; i < numBits; i++)
+        result[i] = signal[i] > 0.0;
+    return result;
+}
+
 
 
