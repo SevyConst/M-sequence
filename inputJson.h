@@ -2,8 +2,8 @@
 // Created by Konstantin Lopatko on 05.09.17.
 //
 
-#ifndef M_SEQUENCE_READPARAM_H
-#define M_SEQUENCE_READPARAM_H
+#ifndef M_SEQUENCE_INPUTJSON_H
+#define M_SEQUENCE_INPUTJSON_H
 
 #include <vector>
 
@@ -12,26 +12,25 @@
 #include "rapidjson/include/rapidjson/filereadstream.h"
 
 class inputJson {
+
+    unsigned int readNumBits() const;  // number of bits that will be sent
+    unsigned int readLengthLFSR() const;
+    std::vector<unsigned int> readTaps() const;
+    double readSNRdB() const;  // read signal/noise ratio in decibels
+
     rapidjson::Document doc;
-
-    unsigned int numBits;  // number of samples in M-sequence
-    unsigned int lengthLFSR;
-    std::vector<unsigned int> taps;
-
-    // These functions save the parameters from file to the variables above
-    void readNumBits();
-    void readLengthLFSR();
-    void readTaps();
 public:
     // open file with parameters
     inputJson(const char *path);
 
-    void saveDataFromFile();
+    // save all data from file to variables
+    void readFile();
 
-    unsigned int getNumBits() const;
-    unsigned int getLengthLFSR() const;
-    std::vector<unsigned int> getTaps() const;
+    unsigned int numBits;
+    unsigned int lengthLFSR;
+    std::vector<unsigned int> taps;
+    double snrdB; // signal/noise dB
 };
 
 
-#endif //M_SEQUENCE_READPARAM_H
+#endif //M_SEQUENCE_INPUTJSON_H

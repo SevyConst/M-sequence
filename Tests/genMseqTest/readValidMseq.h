@@ -2,8 +2,8 @@
 // Created by Konstantin Lopatko on 23.08.17.
 //
 
-#ifndef M_SEQUENCE_READJSON_H
-#define M_SEQUENCE_READJSON_H
+#ifndef M_SEQUENCE_READVALIDMSEQ_H
+#define M_SEQUENCE_READVALIDMSEQ_H
 
 #include <vector>
 
@@ -15,10 +15,10 @@ class readValidMseq {
 
     // Returns reference to i-th M-sequence. For example getPartOfDoc(3) returns
     // doc["No. 3"]
-    const rapidjson::Value& getPartOfDoc(unsigned int i);
+    const rapidjson::Value& getPartOfDoc(unsigned int i) const;
 
-    // Map from Json file convert to bool
-    std::vector<bool> MapToBoolVector(const rapidjson::Value& obj);
+    // read map from Json file and convert this data to bool
+    std::vector<bool> MapToBoolVector(const rapidjson::Value& obj) const;
 
     rapidjson::Document doc;
 
@@ -27,13 +27,13 @@ public:
     readValidMseq(const char *path);
 
     // n - No. M-sequence in JSON file
-    std::vector<bool> iniState(unsigned int i);
-    std::vector<unsigned int> readTaps(unsigned int i);
-    std::vector<bool> readMseq(unsigned int i);
+    std::vector<bool> readIniState(unsigned int i) const;
+    std::vector<unsigned int> readTaps(unsigned int i) const;
+    std::vector<bool> readMseq(unsigned int i) const;
 
     // get number parts (get number of M-sequences)
     unsigned int getNumParts() const;
 };
 
 
-#endif //M_SEQUENCE_READJSON_H
+#endif //M_SEQUENCE_READVALIDMSEQ_H

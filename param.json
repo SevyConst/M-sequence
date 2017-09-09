@@ -1,5 +1,6 @@
 {
     "Number of sent bits": 100000,
     "length of LFSR": 10,
-    "taps": [3]
+    "taps": [3],
+    "signal/noise ratio, dB": 1
 }

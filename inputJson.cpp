@@ -4,64 +4,60 @@
 
 #include "inputJson.h"
 
-#include <iostream>
-
 
 inputJson::inputJson(const char *path) {
     FILE* fp = fopen(path, "r");
-    char readBuffer[65536];
+    const int sizeBuffer = 65536;
+    char readBuffer[sizeBuffer];
     rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
     doc.ParseStream(is);
 }
 
 
-void inputJson::readNumBits() {
+void inputJson::readFile() {
+    numBits = readNumBits();
+    lengthLFSR = readLengthLFSR();
+    taps = readTaps();
+    snrdB = readSNRdB();
+}
 
+
+unsigned int inputJson::readNumBits() const {
     // use assert() as in rapidjson tutorial
     assert(doc.HasMember("Number of sent bits"));
-    numBits = doc["Number of sent bits"].GetInt();
+    return doc["Number of sent bits"].GetInt();
 }
 
 
-void inputJson::readLengthLFSR() {
+unsigned int inputJson::readLengthLFSR() const {
     assert(doc.HasMember("length of LFSR"));
-    lengthLFSR = doc["length of LFSR"].GetInt();
+    return doc["length of LFSR"].GetInt();
 }
 
 
-void inputJson::readTaps() {
+std::vector<unsigned int> inputJson::readTaps() const {
     assert(doc.HasMember("taps"));
 
-    const rapidjson::Value& refTaps = doc["taps"];
+    const rapidjson::Value &refTaps = doc["taps"];
+    std::vector<unsigned int> taps;
 
-    unsigned int temp;
     for (rapidjson::Value::ConstValueIterator itr = refTaps.Begin();
-         itr != refTaps.End(); ++itr){
+         itr != refTaps.End(); ++itr) {
         taps.push_back(itr->GetInt());
     }
-}
 
-
-void inputJson::saveDataFromFile() {
-    readNumBits();
-    readLengthLFSR();
-    readTaps();
-}
-
-
-unsigned int inputJson::getNumBits() const {
-    return numBits;
-}
-
-
-unsigned int inputJson::getLengthLFSR() const {
-    return lengthLFSR;
-}
-
-
-std::vector<unsigned int> inputJson::getTaps() const {
     return taps;
 }
+
+
+double inputJson::readSNRdB() const {
+    assert(doc.HasMember("signal/noise ratio, dB"));
+    return doc["signal/noise ratio, dB"].GetDouble();
+}
+
+
+
+
 
 
 

@@ -2,18 +2,14 @@ from scipy.signal import max_len_seq
 from random import randint
 import json
 
-# This dictionary copied from Scipy _max_len_seq.py. It contains default
-# "taps" for generating m-sequence (also known as Maximum length sequence
-# or MLS) with different lengths of registers. key  - length of register.
-# Value - taps which allow to generate M-sequence.
-_dictionary_taps = {5: [3], 6: [5], 7: [6], 8: [7, 6, 1],
-             9: [5], 10: [7], 11: [9], 12: [11, 10, 4], 13: [12, 11, 8]}
+
+# Copied from Scipy _max_len_seq.py. Keys in dictionary - lengths of
+# registers, values - taps which provide generating M-sequence.
+_dictionary_taps = {5: [3], 6: [5], 7: [6], 8: [7, 6, 1]}
 
 
-def gen_init_state(state_length):
+def gen_init_state(length_register):
     ''' Generate initial state randomly
-
-    state_length -- length of returned array
 
     Returns: list. Contains only 1 and 0.
     Must contains at least one 1
@@ -23,7 +19,7 @@ def gen_init_state(state_length):
 
     all_zeros = True
     while (all_zeros):
-        for i in range(state_length):
+        for i in range(length_register):
             state.append(randint(0, 1))
             if state[i] == 1:
                 all_zeros = False

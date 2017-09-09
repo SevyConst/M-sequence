@@ -3,24 +3,22 @@
 //
 
 #include <iostream>
-#include <sstream>
-#include <fstream>
 #include <vector>
 
 #include "readValidMseq.h"
-#include "../../transmitterAndNoise.h"
+#include "../../mainFunctions.h"
 
-
-bool compareMSeq(const std::vector<bool> m1, const std::vector<bool> m2);
+// compare sequences
+bool equalSequences(const std::vector<bool> seq1, const std::vector<bool> seq2);
 
 int main(){
     readValidMseq check("../Tests/genMseqTest/M-sequences.json");
 
-    bool testPassed = true;
+    // i - No. of M-sequence in file
+    for (int i = 0; i < check.getNumParts(); i++) {
 
-    // i - No. of M-sequence in file)
-    for (int i = 0; i <= 4; i++) {
-        std::vector<bool> iniState = check.iniState(i);
+        // read from file directly
+        std::vector<bool> iniState = check.readIniState(i);
         unsigned int lengthRegister = iniState.size();
         std::vector<unsigned int> taps = check.readTaps(i);
         std::vector<bool> validMseq = check.readMseq(i);
@@ -28,21 +26,19 @@ int main(){
         // number of samples of M-sequences
         unsigned int numSamples = validMseq.size();
 
-        std::vector<bool> Mseq = tn::genMseq(iniState, numSamples, taps);
-        if (!compareMSeq(Mseq, validMseq)) {
-            std::cout << "No. " << i << ". Don't equal!" << std::endl;
-            testPassed = false;
+        std::vector<bool> Mseq = genMseq(iniState, numSamples, taps);
+        if (!equalSequences(Mseq, validMseq)) {
+            std::cout << "M-sequence No. " << i << ". Don't equal!";
+            return -1;
+
         }
     }
-
-    if (testPassed)
-        std::cout << "Test passed!" << std::endl;
+    std::cout << "Test passed!" << std::endl;
 }
 
-// return true if sequences is equal
-bool compareMSeq(const std::vector<bool> m1, const std::vector<bool> m2){
-    for (unsigned int i = 0; i < m1.size(); i++){
-        if (m1.at(i) != m2.at(i))
+bool equalSequences(const std::vector<bool> seq1, const std::vector<bool> seq2){
+    for (unsigned int i = 0; i < seq1.size(); i++){
+        if (seq1.at(i) != seq2.at(i))
             return false;
     }
     return true;
