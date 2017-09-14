@@ -10,3 +10,9 @@ set(GEN_M_SEQ_TEST_FILES Tests/genMseqTest/genMseqTest.cpp Tests/genMseqTest/rea
 add_executable (gen_Mseq_test ${GEN_M_SEQ_TEST_FILES})
 enable_testing ()
 add_test (gen_Mseq_test())
+
+
+set(CHANNEL_TEST_FILES Tests/ChannelIntegrTest.cpp mainFunctions.cpp inputJson.cpp)
+add_executable (Channel_test ${CHANNEL_TEST_FILES})
+enable_testing ()
+add_test (Channel_test())

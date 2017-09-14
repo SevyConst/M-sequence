@@ -14,6 +14,26 @@ inputJson::inputJson(const char *path) {
 }
 
 
+unsigned int inputJson::getNumBits() const {
+    return numBits;
+}
+
+
+unsigned int inputJson::getLengthLFSR() const {
+    return lengthLFSR;
+}
+
+
+std::vector<unsigned int> inputJson::getTaps() const {
+    return taps;
+}
+
+
+double inputJson::getSNRdB() const {
+    return snrdB;
+}
+
+
 void inputJson::readFile() {
     numBits = readNumBits();
     lengthLFSR = readLengthLFSR();
@@ -23,6 +43,7 @@ void inputJson::readFile() {
 
 
 unsigned int inputJson::readNumBits() const {
+
     // use assert() as in rapidjson tutorial
     assert(doc.HasMember("Number of sent bits"));
     return doc["Number of sent bits"].GetInt();

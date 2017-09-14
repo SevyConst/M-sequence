@@ -1,5 +1,7 @@
 //
-// Created by Konstantin Lopatko on 16.08.17.
+// Test for generating M-sequences. Read from JSON file parameters
+// (taps, initial state, etc.) and corresponding M-sequences generated
+// in SciPy (.py file in this directory). Compare it with result by genMseq()
 //
 
 #include <iostream>
@@ -35,6 +37,7 @@ int main(){
     }
     std::cout << "Test passed!" << std::endl;
 }
+
 
 bool equalSequences(const std::vector<bool> seq1, const std::vector<bool> seq2){
     for (unsigned int i = 0; i < seq1.size(); i++){

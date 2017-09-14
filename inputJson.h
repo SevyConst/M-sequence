@@ -13,12 +13,19 @@
 
 class inputJson {
 
-    unsigned int readNumBits() const;  // number of bits that will be sent
-    unsigned int readLengthLFSR() const;
-    std::vector<unsigned int> readTaps() const;
+    unsigned int readNumBits() const;  // read number of bits that will be sent
+    unsigned int readLengthLFSR() const;  // read length of register
+    std::vector<unsigned int> readTaps() const; // taps of register
     double readSNRdB() const;  // read signal/noise ratio in decibels
 
     rapidjson::Document doc;
+
+
+    unsigned int numBits;
+    unsigned int lengthLFSR;
+    std::vector<unsigned int> taps;
+    double snrdB; // signal/noise dB
+
 public:
     // open file with parameters
     inputJson(const char *path);
@@ -26,10 +33,10 @@ public:
     // save all data from file to variables
     void readFile();
 
-    unsigned int numBits;
-    unsigned int lengthLFSR;
-    std::vector<unsigned int> taps;
-    double snrdB; // signal/noise dB
+    unsigned int getNumBits() const;
+    unsigned int getLengthLFSR() const;
+    std::vector<unsigned int> getTaps() const;
+    double getSNRdB() const;
 };
 
 

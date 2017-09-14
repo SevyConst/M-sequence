@@ -1,6 +1,5 @@
 //
-// Created by Konstantin Lopatko on 16.08.17.
-//
+// Brief Description of these functions is given in mainFunctions.h
 //
 
 #include "mainFunctions.h"

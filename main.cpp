@@ -1,3 +1,8 @@
+//
+// For now this is example of use functions from mainFunctions.h
+// Acquisition of M-sequence in simulated receiver will be added in future.
+//
+
 #include <iostream>
 #include <vector>
 
@@ -9,33 +14,44 @@ int main() {
     // Define parameters
     //-------------------------------------------------------------------------
 
-    // open JSON file with parameters
+    // Open JSON file with parameters
     inputJson param("../param.json");
 
-    // read parameters and save to variables in object param
+    // Read parameters and save to variables in object param
     param.readFile();
 
+    // Length of LFSR - linear-feedback shift register which generates M-sequence
+    unsigned lengthLFSR = param.getLengthLFSR();
+
+    // Total number of transmitted bits
+    unsigned numBits = param.getNumBits();
+
+    // Taps of register. Bit No. 0 is always tap.
+    std::vector<unsigned int> taps= param.getTaps();
+
+    // SNR - Signal/Noise Ratio in dB. Actually it is
+    // E_b/N_0 - the energy per bit to noise power spectral density ratio.
+    double snrdB = param.getSNRdB();
 
 
     // Transmitter
     //-------------------------------------------------------------------------
 
     // generate M-sequence with random initial seed of LFSR
-    std::vector<bool> mSeq = genMseq(param.lengthLFSR,
-                                     param.numBits,
-                                     param.taps);
+    std::vector<bool> mSeq = genMseq(lengthLFSR,
+                                     numBits,
+                                     taps);
 
     // Received signal (without carrier) with noise.
-    // Second argument snr - Signal/Noise Ratio in dB. Actually it is
-    // E_b/N_0 - the energy per bit to d ratio.
     // Suppose power of signal = 1 by default
-    std::vector<double> signal = transmit(mSeq, param.snrdB);
+    std::vector<double> signal = transmit(mSeq, snrdB);
 
 
 
-    // Simplest receiver
+    // Simplest receiver. It will be replaced with receiver optimized for
+    // M-sequence
     //-------------------------------------------------------------------------
-    std::vector<bool> recievedBits = simplestReciever(signal);
+    std::vector<bool> receivedBits = simplestReciever(signal);
 
 
 
