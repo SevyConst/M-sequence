@@ -1,5 +1,5 @@
 //
-// Created by Konstantin Lopatko on 05.09.17.
+// Read initial parameters from file
 //
 
 #include "inputJson.h"

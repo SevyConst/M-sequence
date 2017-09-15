@@ -9,6 +9,10 @@
 #include "mainFunctions.h"
 #include "inputJson.h"
 
+
+namespace f = mainFunctions;
+
+
 int main() {
 
     // Define parameters
@@ -23,11 +27,11 @@ int main() {
     // Length of LFSR - linear-feedback shift register which generates M-sequence
     unsigned lengthLFSR = param.getLengthLFSR();
 
-    // Total number of transmitted bits
+    // Number of transmitted bits
     unsigned numBits = param.getNumBits();
 
     // Taps of register. Bit No. 0 is always tap.
-    std::vector<unsigned int> taps= param.getTaps();
+    std::vector<unsigned int> taps = param.getTaps();
 
     // SNR - Signal/Noise Ratio in dB. Actually it is
     // E_b/N_0 - the energy per bit to noise power spectral density ratio.
@@ -38,20 +42,21 @@ int main() {
     //-------------------------------------------------------------------------
 
     // generate M-sequence with random initial seed of LFSR
-    std::vector<bool> mSeq = genMseq(lengthLFSR,
+    // f - alias of namespace mainFunctions
+    std::vector<bool> mSeq = f::genMseq(lengthLFSR,
                                      numBits,
                                      taps);
 
     // Received signal (without carrier) with noise.
     // Suppose power of signal = 1 by default
-    std::vector<double> signal = transmit(mSeq, snrdB);
+    std::vector<double> signal = f::transmit(mSeq, snrdB);
 
 
 
     // Simplest receiver. It will be replaced with receiver optimized for
     // M-sequence
     //-------------------------------------------------------------------------
-    std::vector<bool> receivedBits = simplestReciever(signal);
+    std::vector<bool> receivedBits = f::simplestReciever(signal);
 
 
 

@@ -1,7 +1,8 @@
 //
 // Test for generating M-sequences. Read from JSON file parameters
 // (taps, initial state, etc.) and corresponding M-sequences generated
-// in SciPy (.py file in this directory). Compare it with result by genMseq()
+// in SciPy using built-in function (genMseqTest.py file in this directory).
+// Compare it with results by genMseq()
 //
 
 #include <iostream>
@@ -9,6 +10,7 @@
 
 #include "readValidMseq.h"
 #include "../../mainFunctions.h"
+
 
 // compare sequences
 bool equalSequences(const std::vector<bool> seq1, const std::vector<bool> seq2);
@@ -28,7 +30,7 @@ int main(){
         // number of samples of M-sequences
         unsigned int numSamples = validMseq.size();
 
-        std::vector<bool> Mseq = genMseq(iniState, numSamples, taps);
+        std::vector<bool> Mseq = mainFunctions::genMseq(iniState, numSamples, taps);
         if (!equalSequences(Mseq, validMseq)) {
             std::cout << "M-sequence No. " << i << ". Don't equal!";
             return -1;

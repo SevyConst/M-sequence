@@ -1,3 +1,6 @@
+# Generate M-sequence using SciPy. Write it to file.
+
+
 from scipy.signal import max_len_seq
 from random import randint
 import json

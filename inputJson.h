@@ -1,5 +1,5 @@
 //
-// Created by Konstantin Lopatko on 05.09.17.
+// Read initial parameters from JSON file using rapidjson.
 //
 
 #ifndef M_SEQUENCE_INPUTJSON_H
@@ -15,7 +15,7 @@ class inputJson {
 
     unsigned int readNumBits() const;  // read number of bits that will be sent
     unsigned int readLengthLFSR() const;  // read length of register
-    std::vector<unsigned int> readTaps() const; // taps of register
+    std::vector<unsigned int> readTaps() const;  // taps of register
     double readSNRdB() const;  // read signal/noise ratio in decibels
 
     rapidjson::Document doc;
@@ -24,7 +24,7 @@ class inputJson {
     unsigned int numBits;
     unsigned int lengthLFSR;
     std::vector<unsigned int> taps;
-    double snrdB; // signal/noise dB
+    double snrdB;  // signal/noise dB
 
 public:
     // open file with parameters
